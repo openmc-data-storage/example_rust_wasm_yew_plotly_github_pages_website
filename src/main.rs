@@ -1,31 +1,38 @@
+use plotly::{Plot, Scatter};
 use yew::prelude::*;
 
-struct Index;
-impl Component for Index {
-    type Message = ();
-    type Properties = ();
+#[function_component(App)]
+pub fn plot_component() -> Html {
+    let p = yew_hooks::use_async::<_, _, ()>({
+        let id = "plot-div";
+        let mut plot = Plot::new();
+        let trace = Scatter::new(vec![0, 1, 2], vec![2, 1, 0]);
+        plot.add_trace(trace);
 
-    fn create(_: Self::Properties, _: ComponentLink<Self>) -> Self {
-        Self
-    }
+        let layout =
+            plotly::Layout::new().title(plotly::common::Title::new("Displaying a Chart in Yew"));
+        plot.set_layout(layout);
 
-    fn update(&mut self, _: Self::Message) -> ShouldRender {
-        false
-    }
-
-    fn change(&mut self, _: Self::Properties) -> ShouldRender {
-        false
-    }
-
-    fn view(&self) -> Html {
-        html! {
-            <div>
-                { "Hello, World! This is working. WASM Rust GH pages" }
-            </div>
+        async move {
+            plotly::bindings::new_plot(id, &plot).await;
+            Ok(())
         }
+    });
+
+    use_effect_with_deps(
+        move |_| {
+            p.run();
+            || ()
+        },
+        (),
+    );
+
+    html! {
+        <div id="plot-div"></div>
     }
 }
 
 fn main() {
-    yew::start_app::<Index>();
+    wasm_logger::init(wasm_logger::Config::default());
+    yew::start_app::<App>();
 }
