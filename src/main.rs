@@ -10,7 +10,7 @@ pub fn plot_component() -> Html {
         plot.add_trace(trace);
 
         let layout =
-            plotly::Layout::new().title(plotly::common::Title::new("Displaying a Chart in Yew"));
+            plotly::Layout::new().title(plotly::common::Title::new(""));
         plot.set_layout(layout);
 
         async move {
