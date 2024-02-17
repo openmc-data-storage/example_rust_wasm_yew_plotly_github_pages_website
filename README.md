@@ -1,4 +1,6 @@
-[https://openmc-data-storage.github.io/isotope_plotter.rs/](https://openmc-data-storage.github.io/isotope_plotter.rs/)
+This Yew based Rust WASM website is hosted here
+
+[https://openmc-data-storage.github.io/example_rust_wasm_yew_plotly_github_pages_website/](https://openmc-data-storage.github.io/example_rust_wasm_yew_plotly_github_pages_website/)
 
 <!-- To build locally
 ```
