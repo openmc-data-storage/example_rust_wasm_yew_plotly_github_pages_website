@@ -8,17 +8,17 @@ pub fn plot_component() -> Html {
         let mut plot = Plot::new();
         let trace = Scatter::new(vec![0, 1, 2], vec![2, 1, 0]);
         plot.add_trace(trace);
-
+        
         let layout =
-            plotly::Layout::new().title(plotly::common::Title::new("Displaying a Chart in Yew"));
+        plotly::Layout::new().title(plotly::common::Title::new("Displaying a Chart in Yew"));
         plot.set_layout(layout);
-
+        
         async move {
             plotly::bindings::new_plot(id, &plot).await;
             Ok(())
         }
     });
-
+    
     use_effect_with_deps(
         move |_| {
             p.run();
@@ -26,13 +26,14 @@ pub fn plot_component() -> Html {
         },
         (),
     );
-
+    
     html! {
         <div id="plot-div"></div>
     }
 }
 
-fn main() {
+#[tokio::main]
+async fn main() {
     wasm_logger::init(wasm_logger::Config::default());
     yew::start_app::<App>();
 }
