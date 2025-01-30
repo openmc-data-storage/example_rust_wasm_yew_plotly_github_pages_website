@@ -14,7 +14,7 @@ python -m http.server 8000
 Install instructions on Ubuntu 22.04
 ```
 sudo apt-get install curl
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 . "$HOME/.cargo/env"
 rustup target add wasm32-unknown-unknown
 cargo build --target wasm32-unknown-unknown --release
